@@ -4,6 +4,8 @@ title: DNS
 
 ApisCP ships with a variety of [DNS providers](https://github.com/search?q=topic%3Adns+org%3Aapisnetworks&type=Repositories) that allow for ApisCP to communicate directly with your service provider. DNS can be configured per-site or globally; in global configuration all sites that does not explicitly have a DNS provider configured will inherit the global setting.
 
+Setting the provider does not configure the DNS server, but only prepares APISCP for use with that provider, you will need to install and configure the server for example if you powerdns then you must follow its setup after this has been completed.
+
 ## Providers
 
 - null: dummy driver that always returns success
@@ -341,3 +343,5 @@ dig +norec +aaonly +time=3 +tcp +short @ns1.domain.com TXT foo.domain.com
 # Equivalent to the following commmand:
 cpcmd -d domain.com dns:record-exists domain.com foo TXT
 ```
+
+Powerdns on APISCP is not compatiable with cpanel DNS clustering, if you want to configure a DNS cluster with cpanel (for ease of migration as an example) you will need to setup a cluster yourself then configure your existing cpanel servers to work with that cluster as their DNS servers and remove the cpanel DNS servers from your group. The cluster will also not remove DNS entries from it created by cpanel (if will from apiscp) these will have to be removed manually.
